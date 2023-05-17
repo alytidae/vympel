@@ -5,9 +5,15 @@ use std::process;
 enum Command {
     Help,
     Show,
-    Add(String, String),
+    Add(String, TaskPriority),
     Rm(u32),
     All,
+}
+
+enum TaskPriority {
+    Low,
+    Mid,
+    High,
 }
 
 impl Command {
@@ -28,11 +34,19 @@ impl Command {
                 Err(_) => return Err("Number of task must be integer. Like this:\n\ttasks rm 2     - delete task with number 2"),
             }
         }else if args.len() == 3 && args[1] == "add" {
-            todo!(); 
+            Ok(Command::Add(args[2].clone(), TaskPriority::Mid))
         }else if args.len() == 4 && args[1] == "add" {
-            todo!();
+            if args[3] == "low" {
+                Ok(Command::Add(args[2].clone(), TaskPriority::Low))
+            }else if args[3] == "mid" {
+                Ok(Command::Add(args[2].clone(), TaskPriority::Mid))
+            }else if args[3] == "high" {
+                Ok(Command::Add(args[2].clone(), TaskPriority::High))
+            }else{
+                Err("The priority of the task should be one of 3 options:\n\tlow\n\tmid\n\thigh")
+            }
         }else{
-            todo!();
+            return Err("Inaccurate command. For information on available commands, use:\n\ttasks help");
         }
     }
 }
@@ -64,8 +78,11 @@ fn command_all() {
 
 fn execute_command(command: &Command) {
     match command {
-        Command::Help => command_help(),
-        _ => (),
+        Command::Help => println!("help"),
+        Command::Show => println!("show"),
+        Command::Add(_,_) => println!("add"),
+        Command::Rm(_) => println!("rm"),
+        Command::All => println!("all"),
     }
 }
 
