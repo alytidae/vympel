@@ -8,6 +8,7 @@ enum Command {
     Add(String, TaskPriority),
     Rm(u32),
     All,
+    Edit(u32),
 }
 
 enum TaskPriority {
@@ -55,8 +56,9 @@ impl Command {
         println!("\ttasks                       - show all tasks");
         println!("\ttasks add \"Watch a film\"    - add task \"Buy a milk\"");
         println!("\ttasks add \"Buy a milk\" high - add a priority task (low, mid:default, high)");
-        println!("\ttasks rm 2                  - delete task with number 2");
+        println!("\ttasks rm 2                  - delete task number 2");
         println!("\ttasks all                   - show completed and incomplete tasks");
+        println!("\ttasks edit 2                - edit task number 1");
         Ok(())
     }
     
@@ -76,6 +78,10 @@ impl Command {
         todo!();
     }
 
+    fn edit(&self) -> Result<(), &'static str>{
+        todo!();
+    }
+
     fn execute(&self) -> Result<(), &'static str>{
         match self {
             Command::Help => self.help(),
@@ -83,6 +89,7 @@ impl Command {
             Command::Add(_,_) => self.add(),
             Command::Rm(_) => self.rm(),
             Command::All => self.all(),
+            Command::Edit(_) => self.edit(),
         }
     }
 }
