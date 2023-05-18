@@ -32,7 +32,12 @@ impl Command {
         }else if args.len() == 3 && args[1] == "rm"{
             match args[2].parse::<u32>(){
                 Ok(n) => return Ok(Command::Rm(n)),
-                Err(_) => return Err("Number of task must be integer. Like this:\n\ttasks rm 2     - delete task with number 2"),
+                Err(_) => return Err("Number of task must be integer. Like this:\n\ttasks rm 2     - remove task number 2"),
+            }
+        }else if args.len() == 3 && args[1] == "edit"{
+            match args[2].parse::<u32>(){
+                Ok(n) => return Ok(Command::Edit(n)),
+                Err(_) => return Err("Number of task must be integer. Like this:\n\ttasks edit 1     - edit task number 1"),
             }
         }else if args.len() == 3 && args[1] == "add" {
             Ok(Command::Add(args[2].clone(), TaskPriority::Mid))
@@ -56,7 +61,7 @@ impl Command {
         println!("\ttasks                       - show all tasks");
         println!("\ttasks add \"Watch a film\"    - add task \"Buy a milk\"");
         println!("\ttasks add \"Buy a milk\" high - add a priority task (low, mid:default, high)");
-        println!("\ttasks rm 2                  - delete task number 2");
+        println!("\ttasks rm 2                  - remove task number 2");
         println!("\ttasks all                   - show completed and incomplete tasks");
         println!("\ttasks edit 2                - edit task number 1");
         Ok(())
