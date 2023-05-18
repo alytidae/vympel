@@ -49,40 +49,41 @@ impl Command {
             return Err("Inaccurate command. For information on available commands, use:\n\ttasks help");
         }
     }
-}
 
-fn command_help() {
-    println!("There are several commands that you can use:");
-    println!("\ttasks                       - show all tasks");
-    println!("\ttasks add \"Watch a film\"    - add task \"Buy a milk\"");
-    println!("\ttasks add \"Buy a milk\" high - add a priority task (low, mid:default, high)");
-    println!("\ttasks rm 2                  - delete task with number 2");
-    println!("\ttasks all                   - show completed and incomplete tasks");
-}
+    fn help(&self) -> Result<(), &'static str> {
+        println!("There are several commands that you can use:");
+        println!("\ttasks                       - show all tasks");
+        println!("\ttasks add \"Watch a film\"    - add task \"Buy a milk\"");
+        println!("\ttasks add \"Buy a milk\" high - add a priority task (low, mid:default, high)");
+        println!("\ttasks rm 2                  - delete task with number 2");
+        println!("\ttasks all                   - show completed and incomplete tasks");
+        Ok(())
+    }
+    
+    fn show(&self) -> Result<(), &'static str>{
+        todo!();
+    }
+    
+    fn add(&self) -> Result<(), &'static str>{
+        todo!();
+    }
+    
+    fn rm(&self) -> Result<(), &'static str>{
+        todo!();
+    }
+    
+    fn all(&self) -> Result<(), &'static str>{
+        todo!();
+    }
 
-fn command_show() {
-    todo!();
-}
-
-fn command_add() {
-    todo!();
-}
-
-fn command_rm() {
-    todo!();
-}
-
-fn command_all() {
-    todo!();
-}
-
-fn execute_command(command: &Command) {
-    match command {
-        Command::Help => println!("help"),
-        Command::Show => println!("show"),
-        Command::Add(_,_) => println!("add"),
-        Command::Rm(_) => println!("rm"),
-        Command::All => println!("all"),
+    fn execute(&self) -> Result<(), &'static str>{
+        match self {
+            Command::Help => self.help(),
+            Command::Show => self.show(),
+            Command::Add(_,_) => self.add(),
+            Command::Rm(_) => self.rm(),
+            Command::All => self.all(),
+        }
     }
 }
 
@@ -92,6 +93,9 @@ fn main() {
         println!("{err}");
         process::exit(1);
     });
-
-    execute_command(&command);
+    
+    match command.execute() {
+        Ok(_) => (),
+        Err(error) => println!("{error}"),
+    };
 }
