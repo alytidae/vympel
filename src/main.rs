@@ -8,7 +8,7 @@ enum Command {
     Add(String, TaskPriority),
     Rm(u32),
     All,
-    Edit(u32),
+    // TODO: Edit(u32),
 }
 
 enum TaskPriority {
@@ -34,11 +34,6 @@ impl Command {
                 Ok(n) => return Ok(Command::Rm(n)),
                 Err(_) => return Err("Number of task must be integer. Like this:\n\ttasks rm 2     - remove task number 2"),
             }
-        }else if args.len() == 3 && args[1] == "edit"{
-            match args[2].parse::<u32>(){
-                Ok(n) => return Ok(Command::Edit(n)),
-                Err(_) => return Err("Number of task must be integer. Like this:\n\ttasks edit 1     - edit task number 1"),
-            }
         }else if args.len() == 3 && args[1] == "add" {
             Ok(Command::Add(args[2].clone(), TaskPriority::Mid))
         }else if args.len() == 4 && args[1] == "add" {
@@ -63,7 +58,6 @@ impl Command {
         println!("\ttasks add \"Buy a milk\" high - add a priority task (low, mid:default, high)");
         println!("\ttasks rm 2                  - remove task number 2");
         println!("\ttasks all                   - show completed and incomplete tasks");
-        println!("\ttasks edit 2                - edit task number 1");
         Ok(())
     }
     
@@ -83,10 +77,6 @@ impl Command {
         todo!();
     }
 
-    fn edit(&self) -> Result<(), &'static str>{
-        todo!();
-    }
-
     fn execute(&self) -> Result<(), &'static str>{
         match self {
             Command::Help => self.help(),
@@ -94,7 +84,6 @@ impl Command {
             Command::Add(_,_) => self.add(),
             Command::Rm(_) => self.rm(),
             Command::All => self.all(),
-            Command::Edit(_) => self.edit(),
         }
     }
 }
