@@ -53,11 +53,11 @@ impl Command {
 
     fn help(&self) -> Result<(), &'static str> {
         println!("There are several commands that you can use:");
-        println!("\ttasks                       - show all tasks");
-        println!("\ttasks add \"Watch a film\"    - add task \"Buy a milk\"");
-        println!("\ttasks add \"Buy a milk\" high - add a priority task (low, mid:default, high)");
-        println!("\ttasks rm 2                  - remove task number 2");
-        println!("\ttasks all                   - show completed and incomplete tasks");
+        println!("\tvympel                       - show all tasks");
+        println!("\tvympel add \"Watch a film\"    - add task \"Buy a milk\"");
+        println!("\tvympel add \"Buy a milk\" high - add a priority task (low, mid:default, high)");
+        println!("\tvympel rm 2                  - remove task number 2");
+        println!("\tvympel all                   - show completed and incomplete tasks");
         Ok(())
     }
     
