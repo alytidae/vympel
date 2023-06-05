@@ -151,14 +151,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "tasks-mdrs"
-version = "0.1.0"
-dependencies = [
- "directories",
- "toml",
-]
-
-[[package]]
 name = "thiserror"
 version = "1.0.40"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -217,6 +209,14 @@ name = "unicode-ident"
 version = "1.0.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b15811caf2415fb889178633e7724bad2509101cde276048e013b9def5e51fa0"
+
+[[package]]
+name = "vympel"
+version = "0.1.0"
+dependencies = [
+ "directories",
+ "toml",
+]
 
 [[package]]
 name = "wasi"
