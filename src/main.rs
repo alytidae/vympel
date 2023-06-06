@@ -83,7 +83,7 @@ impl Command {
         todo!();
     }
 
-    fn execute(&self) -> Result<(), &'static str>{
+    fn execute(&self, config: &Config) -> Result<(), &'static str>{
         match self {
             Command::Help => self.help(),
             Command::Show => self.show(),
@@ -136,9 +136,9 @@ fn main() {
         process::exit(1);
     });
     
-   // match command.execute() {
-   //     Ok(_) => (),
-   //     Err(error) => println!("{error}"),
-   // };
+    //match command.execute(&config) {
+    //    Ok(_) => (),
+    //    Err(error) => println!("{error}"),
+    //};
 
 }
