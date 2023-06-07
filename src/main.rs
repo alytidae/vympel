@@ -3,12 +3,11 @@ use std::fs;
 use std::process;
 use directories::ProjectDirs;
 use serde::Deserialize;
-use clap::{Args, Parser, Subcommand};
+use clap::{Args, Parser, Subcommand, ValueEnum};
 
 #[derive(Debug, Parser)]
 #[clap(author, version, about)]
 struct AppArgs {
-    /// The command to execute
     #[clap(subcommand)]
     command: Option<Command>,
 }
@@ -20,8 +19,7 @@ enum Command {
     /// Add task 
     Add{
         task_body: String, 
-        #[clap(subcommand)]
-        task_priority: TaskPriority,
+        task_priority: Option<TaskPriority>,
     },
     /// Remove task
     Rm {
@@ -33,10 +31,10 @@ enum Command {
     // TODO: Edit(u32),
 }
 
-
-#[derive(Debug, Subcommand)]
+#[derive(Debug, ValueEnum, Clone)]
 enum TaskPriority {
     Low,
+    /// Default value
     Mid,
     High,
 }
