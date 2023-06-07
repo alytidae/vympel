@@ -67,29 +67,29 @@ impl Command {
         Ok(())
     }
     
-    fn show(&self) -> Result<(), &'static str>{
+    fn show(&self, config: &Config) -> Result<(), &'static str>{
         todo!();
     }
     
-    fn add(&self) -> Result<(), &'static str>{
+    fn add(&self, config: &Config) -> Result<(), &'static str>{
         todo!();
     }
     
-    fn rm(&self) -> Result<(), &'static str>{
+    fn rm(&self, config: &Config) -> Result<(), &'static str>{
         todo!();
     }
     
-    fn all(&self) -> Result<(), &'static str>{
+    fn all(&self, config: &Config) -> Result<(), &'static str>{
         todo!();
     }
 
     fn execute(&self, config: &Config) -> Result<(), &'static str>{
         match self {
             Command::Help => self.help(),
-            Command::Show => self.show(),
-            Command::Add(_,_) => self.add(),
-            Command::Rm(_) => self.rm(),
-            Command::All => self.all(),
+            Command::Show => self.show(config),
+            Command::Add(_,_) => self.add(config),
+            Command::Rm(_) => self.rm(config),
+            Command::All => self.all(config),
         }
     }
 }
