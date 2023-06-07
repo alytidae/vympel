@@ -15,6 +15,7 @@ struct AppArgs {
 
 #[derive(Debug, Subcommand)]
 enum Command {
+    #[clap(skip)]
     Show,
     /// Add task 
     Add{
