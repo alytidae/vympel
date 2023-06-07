@@ -10,12 +10,11 @@ use clap::{Args, Parser, Subcommand};
 struct AppArgs {
     /// The command to execute
     #[clap(subcommand)]
-    command: Command,
+    command: Option<Command>,
 }
 
 #[derive(Debug, Subcommand)]
 enum Command {
-    /// Show all tasks
     Show,
     /// Add task 
     Add{
@@ -153,7 +152,8 @@ fn main() {
     });
     
     let args = AppArgs::parse();
-    dbg!(args);
+    let command = args.command.unwrap_or(Command::Show);
+    dbg!(command);
     //let args: Vec<String> = env::args().collect();
     //let command = Command::build(&args).unwrap_or_else(|err| {
     //    println!("{err}");
