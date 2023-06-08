@@ -1,46 +1,15 @@
+// TODO: Find a way how to delete this dublicate
+use clap::Parser;
 use std::fs;
 use std::process;
 use directories::ProjectDirs;
 use serde::Deserialize;
-use clap::{Parser, Subcommand, ValueEnum};
 
-#[derive(Debug, Parser)]
-#[clap(author, version, about)]
-struct AppArgs {
-    #[clap(subcommand)]
-    command: Option<Command>,
-}
+mod args;
+mod commands;
+mod config;
 
-#[derive(Debug, Subcommand)]
-enum Command {
-    #[clap(skip)]
-    Show,
-    /// Add task 
-    Add{
-        task_body: String, 
-        task_priority: Option<TaskPriority>,
-    },
-    /// Remove task
-    Rm {
-        /// Number of task to remove
-        task_number: u32,
-    },
-    /// Show completed and incomplete tasks
-    All,
-    // TODO: Edit(u32),
-}
-
-#[derive(Debug, ValueEnum, Clone)]
-enum TaskPriority {
-    Low,
-    /// Default value
-    Mid,
-    High,
-}
-
-#[derive(Deserialize, Debug)]
-struct Config {
-}
+use args::{Command, AppArgs};
 
 impl Command {
     fn show(&self, config: &Config) -> Result<(), &'static str>{
@@ -67,6 +36,12 @@ impl Command {
             Command::All => self.all(config),
         }
     }
+}
+
+
+#[derive(Deserialize, Debug)]
+struct Config {
+
 }
 
 impl Config {
