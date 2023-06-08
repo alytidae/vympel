@@ -1,9 +1,9 @@
-use std::fs;
+use std::{fs, io};
 use directories::ProjectDirs;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Serialize, Debug)]
 pub struct Config {
     tasks_folder_path: String,
 }
@@ -30,12 +30,18 @@ impl Config {
                 },
                 Err(_) => {
                     match fs::create_dir(config_dir.join("tasks")){
-                        Err(err) => return Err(format!("Error in creation tasks folder: {}", err.to_string())),
+                        Err(err) => {
+                            if err.kind() != io::ErrorKind::AlreadyExists {
+                                return Err(format!("Error in creation tasks folder: {}", err.to_string()));
+                            }
+                        }, 
                         _ => (),
-                   }
-                    Config {
-                        tasks_folder_path: "lol".to_string(),
                     }
+                    let config = Config {
+                        tasks_folder_path: config_dir.join("tasks").display().to_string(),
+                    };
+                    fs::write(config_dir.join("config.toml"), toml::to_string(&config).unwrap()).unwrap(); 
+                    config
                 } 
             };
             
