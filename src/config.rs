@@ -5,7 +5,7 @@ use serde::Deserialize;
 
 #[derive(Deserialize, Debug)]
 pub struct Config {
-
+    tasks_folder_path: String,
 }
 
 impl Config {
@@ -28,8 +28,15 @@ impl Config {
                         Err(err) => return Err(format!("Error in config: {}", err.message().to_string())),
                     }
                 },
-                Err(_) => Config {
-                }
+                Err(_) => {
+                    match fs::create_dir(config_dir.join("tasks")){
+                        Err(err) => return Err(format!("Error in creation tasks folder: {}", err.to_string())),
+                        _ => (),
+                   }
+                    Config {
+                        tasks_folder_path: "lol".to_string(),
+                    }
+                } 
             };
             
             return Ok(config);

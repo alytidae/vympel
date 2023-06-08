@@ -19,7 +19,7 @@ fn main() {
     let args = AppArgs::parse();
     let command = args.command.unwrap_or(Command::Show);
     dbg!(command);
-
+    dbg!(config);
     //match command.execute(&config) {
     //    Ok(_) => (),
     //    Err(error) => println!("{error}"),
