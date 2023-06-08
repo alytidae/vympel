@@ -5,7 +5,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize, Serialize, Debug)]
 pub struct Config {
-    tasks_folder_path: String,
+    pub tasks_folder_path: String,
 }
 
 impl Config {
