@@ -7,6 +7,7 @@ pub struct AppArgs {
     pub command: Option<Command>,
 }
 
+// TODO: Move this enum to commands.rs
 #[derive(Debug, Subcommand)]
 pub enum Command {
     #[clap(skip)]
