@@ -1,9 +1,19 @@
 use crate::Config;
 use crate::Command;
+use std::fs;
 
 impl Command {
     fn show(&self, config: &Config) -> Result<(), &'static str>{
-        todo!();
+        println!("{}", config.tasks_folder_path);
+        if let Ok(entries) = fs::read_dir(&config.tasks_folder_path) {
+            for entry in entries {
+                if let Ok(entry) = entry {
+                    // Here, `entry` is a `DirEntry`.
+                    println!("{:?}", entry.file_name());
+                }
+            }
+        }
+        Ok(())
     }
     
     fn add(&self, config: &Config) -> Result<(), &'static str>{
