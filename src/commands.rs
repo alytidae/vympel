@@ -9,7 +9,7 @@ impl Command {
             for entry in entries {
                 if let Ok(entry) = entry {
                     // Here, `entry` is a `DirEntry`.
-                    println!("{}", entry.file_name().to_str().unwrap());
+                    println!("{}", entry.path().file_stem().unwrap().to_str().unwrap());
                 }
             }
         }
