@@ -5,6 +5,7 @@ use std::process;
 mod args;
 mod commands;
 mod config;
+mod tasks;
 
 use args::{Command, AppArgs};
 use config::Config;
