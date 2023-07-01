@@ -8,7 +8,9 @@ impl Command {
     fn show(&self, config: &Config) -> Result<(), &'static str>{
         println!("{}", config.tasks_folder_path);
         let entries = fs::read_dir(&config.tasks_folder_path);
-        Tasks::build(entries.unwrap());
+        let tasks = Tasks::build(entries.unwrap()).unwrap();
+
+        tasks.print_short_list();
         //if let Ok(entries) = fs::read_dir(&config.tasks_folder_path) {
         //    for entry in entries {
         //        if let Ok(entry) = entry {
