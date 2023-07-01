@@ -1,5 +1,6 @@
 use std::fs::{self, ReadDir};
-use std::path::{PathBuf};
+use std::path::PathBuf;
+use std::io::{self, Write};
 
 pub struct Tasks {
     list: Vec<Task>,
@@ -28,7 +29,14 @@ impl Tasks {
 
         Ok(Tasks{ list: task_list })
     }
-
+    
+    pub fn print_short_list(&self) {
+        for i in 0..self.list.len() {
+            print!("{}. ", i+1);
+            io::stdout().flush().unwrap();
+            self.list[i].print_short();
+        }
+    }
 }
 
 impl Task {
@@ -53,11 +61,11 @@ impl Task {
         Ok(task)
     }
 
-    pub fn short_print(&self) {
+    pub fn print_short(&self) {
         println!("{}", &self.name);
     }
 
-    pub fn full_print(&self) {
+    pub fn print_full(&self) {
         todo!();
     }
 }
