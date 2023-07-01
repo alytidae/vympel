@@ -21,13 +21,13 @@ impl Tasks {
     //TODO: Return tasks
     pub fn build(entries: ReadDir) -> Result<(), String> {
         for entry in entries {
-            println!("###");
             let data = fs::read_to_string(entry.unwrap().path()).unwrap();
-            let parts = data.split("---").collect::<Vec<&str>>();
+            let parts = data.split("---\n").collect::<Vec<&str>>();
             if parts.len() > 2 {
-                println!("{:?}", parts[1]);
+                for meta_field in parts[1].lines(){
+                    println!("{}", meta_field);
+                }
             }
-            println!("###");
         }
         Ok(())
     }
