@@ -7,16 +7,15 @@ mod commands;
 mod config;
 mod tasks;
 
-use args::{Command, AppArgs};
+use args::{AppArgs, Command};
 use config::Config;
 
-
-fn main() {    
+fn main() {
     let config = Config::build().unwrap_or_else(|err| {
         println!("{err}");
         process::exit(1);
     });
-    
+
     let args = AppArgs::parse();
     let command = args.command.unwrap_or(Command::Show);
     dbg!(&command);
@@ -26,5 +25,4 @@ fn main() {
         Ok(_) => (),
         Err(error) => println!("{error}"),
     };
-
 }

@@ -1,6 +1,6 @@
 use std::fs::{self, ReadDir};
-use std::path::PathBuf;
 use std::io::{self, Write};
+use std::path::PathBuf;
 
 pub struct Tasks {
     list: Vec<Task>,
@@ -16,7 +16,7 @@ pub struct Task {
 
 pub enum TaskStatus {
     Active,
-    Inactive,    
+    Inactive,
 }
 
 impl Tasks {
@@ -27,12 +27,12 @@ impl Tasks {
             task_list.push(Task::build(entry.unwrap().path()).unwrap());
         }
 
-        Ok(Tasks{ list: task_list })
+        Ok(Tasks { list: task_list })
     }
-    
+
     pub fn print_short_list(&self) {
         for i in 0..self.list.len() {
-            print!("{}. ", i+1);
+            print!("{}. ", i + 1);
             io::stdout().flush().unwrap();
             self.list[i].print_short();
         }
@@ -44,7 +44,7 @@ impl Task {
     fn build(path: PathBuf) -> Result<Task, String> {
         let data = fs::read_to_string(path).unwrap();
         let parts = data.split("---\n").collect::<Vec<&str>>();
-        let task = Task{
+        let task = Task {
             name: String::from("123"),
             status: TaskStatus::Active,
             creation_date: String::from("123"),
@@ -55,7 +55,7 @@ impl Task {
         //if parts.len() == 3 {
         //    for meta_field in parts[1].lines(){
         //        println!("{}", meta_field);
-        //    } 
+        //    }
         //}
 
         Ok(task)

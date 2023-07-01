@@ -12,9 +12,9 @@ pub struct AppArgs {
 pub enum Command {
     #[clap(skip)]
     Show,
-    /// Add task 
-    Add{
-        task_body: String, 
+    /// Add task
+    Add {
+        task_body: String,
         task_priority: Option<TaskPriority>,
     },
     /// Remove task
