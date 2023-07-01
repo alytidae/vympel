@@ -1,4 +1,5 @@
 use std::fs::{self, ReadDir};
+use std::path::{PathBuf};
 
 pub struct Tasks {
     list: Vec<Task>,
@@ -21,13 +22,7 @@ impl Tasks {
     //TODO: Return tasks
     pub fn build(entries: ReadDir) -> Result<(), String> {
         for entry in entries {
-            let data = fs::read_to_string(entry.unwrap().path()).unwrap();
-            let parts = data.split("---\n").collect::<Vec<&str>>();
-            if parts.len() > 2 {
-                for meta_field in parts[1].lines(){
-                    println!("{}", meta_field);
-                }
-            }
+            Task::build(entry.unwrap().path());
         }
         Ok(())
     }
@@ -36,7 +31,15 @@ impl Tasks {
 
 impl Task {
     //TODO: Maybe i need to change this md parser...
-    fn build(path: String) -> Result<(), String> {
+    fn build(path: PathBuf) -> Result<(), String> {
+        let data = fs::read_to_string(path).unwrap();
+        let parts = data.split("---\n").collect::<Vec<&str>>();
+        // We have something before metadata, then there is metadata after them there is a description
+        if parts.len() == 3 {
+            for meta_field in parts[1].lines(){
+                println!("{}", meta_field);
+            } 
+        }
         Ok(()) 
     }
 }
