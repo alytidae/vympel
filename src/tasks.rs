@@ -1,8 +1,10 @@
-struct Tasks {
+use std::fs::{self, ReadDir};
+
+pub struct Tasks {
     list: Vec<Task>,
 }
 
-struct Task {
+pub struct Task {
     name: String,
     status: TaskStatus,
     creation_date: String,
@@ -10,7 +12,17 @@ struct Task {
     description: String,
 }
 
-enum TaskStatus {
+pub enum TaskStatus {
     Active,
     Inactive,    
+}
+
+impl Tasks {
+    //TODO: Return tasks
+    pub fn build(entries: ReadDir) -> Result<(), String> {
+        for entry in entries {
+            println!("{:?}", entry);
+        }
+        Ok(())
+    }
 }

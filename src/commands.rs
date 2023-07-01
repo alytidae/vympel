@@ -1,18 +1,22 @@
 use crate::Config;
 use crate::Command;
+use crate::tasks::Tasks;
+
 use std::fs;
 
 impl Command {
     fn show(&self, config: &Config) -> Result<(), &'static str>{
         println!("{}", config.tasks_folder_path);
-        if let Ok(entries) = fs::read_dir(&config.tasks_folder_path) {
-            for entry in entries {
-                if let Ok(entry) = entry {
-                    // Here, `entry` is a `DirEntry`.
-                    println!("{}", entry.path().file_stem().unwrap().to_str().unwrap());
-                }
-            }
-        }
+        let entries = fs::read_dir(&config.tasks_folder_path);
+        Tasks::build(entries.unwrap());
+        //if let Ok(entries) = fs::read_dir(&config.tasks_folder_path) {
+        //    for entry in entries {
+        //        if let Ok(entry) = entry {
+        //            // Here, `entry` is a `DirEntry`.
+        //            println!("{}", entry.path().file_stem().unwrap().to_str().unwrap());
+        //        }
+        //    }
+        //}
         Ok(())
     }
     
