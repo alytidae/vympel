@@ -7,6 +7,7 @@ struct Task {
     status: TaskStatus,
     creation_date: String,
     complete_date: Option<String>,
+    description: String,
 }
 
 enum TaskStatus {
