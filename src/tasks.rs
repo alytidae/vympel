@@ -10,6 +10,7 @@ pub struct Tasks {
 pub struct Task {
     name: String,
     status: TaskStatus,
+    priority: TaskPriority,
     creation_date: String,
     complete_date: Option<String>,
     description: Option<String>,
@@ -18,6 +19,12 @@ pub struct Task {
 pub enum TaskStatus {
     Active,
     Inactive,
+}
+
+pub enum TaskPriority {
+    Low,
+    Mid,
+    High,
 }
 
 impl Tasks {
@@ -60,6 +67,16 @@ impl Task {
             //TODO: rewrite, its awful
             let task_name = metadata.get("name").unwrap().trim().to_string();
             let task_status;
+            let task_priority;
+            if metadata.get("priority").unwrap().trim().to_string() == "low" {
+                task_priority = TaskPriority::Low;
+            }else if metadata.get("priority").unwrap().trim().to_string() == "mid" {
+                task_priority = TaskPriority::Mid;
+            }else if metadata.get("priority").unwrap().trim().to_string() == "high" {
+                task_priority = TaskPriority::High;
+            }else {
+                return Err(String::from("Cant parse priority field in task"));
+            }
             if metadata.get("status").unwrap().trim().to_string() == "active" {
                 task_status = TaskStatus::Active;
             }else if metadata.get("status").unwrap().trim().to_string() == "inactive" {
@@ -84,6 +101,7 @@ impl Task {
             let task = Task {
                 name: task_name,
                 status: task_status,
+                priority: task_priority,
                 creation_date: task_creation_date,
                 complete_date: task_complete_date,
                 description: task_description,
@@ -96,7 +114,11 @@ impl Task {
     }
 
     pub fn print_short(&self) {
-        println!("{}", &self.name);
+        match &self.priority {
+            TaskPriority::Low => println!("{}", &self.name),
+            TaskPriority::Mid => println!("{}", &self.name),
+            TaskPriority::High => println!("🚩 {}", &self.name),
+        }
     }
 
     pub fn print_full(&self) {
